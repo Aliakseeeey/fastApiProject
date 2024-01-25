@@ -3,13 +3,13 @@ from typing import Optional
 from datetime import date, time
 from pydantic import BaseModel
 
+from app.bookings.router import router as router_bookings
+
 app = FastAPI()
 
+app.include_router(router_bookings)
 
-# class SMaster(BaseModel):
-#     address: str
-#     name_master: str
-#     stars: int
+
 class MasterSearchArgs:
     def __init__(self,
                  name_city: str,
