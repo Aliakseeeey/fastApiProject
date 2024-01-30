@@ -4,6 +4,7 @@ from fastapi import HTTPException
 from pydantic import EmailStr
 from app.users.dao import UserDao
 import jwt
+from app.config import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -21,7 +22,7 @@ def create_access_token(data: dict) -> str:
     expire = datetime.utcnow() + timedelta(minutes=30)
     to_encode.update({"exp": expire})
     encode_jwt = jwt.encode(
-        to_encode, "asdlajsdasASDASD", "HS256"
+        to_encode, settings.SECRET_KEY, settings.ALGORITHM
     )
     return encode_jwt
 
